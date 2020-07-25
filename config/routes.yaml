@@ -1,3 +1,24 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+parsing_list:
+    path: /
+    controller: App\Controller\ParserController::list
+    methods: GET
+
+parsing_update:
+    path: /parsings/update
+    controller: App\Controller\ParserController::run
+    methods: GET
+
+parsing_posts_list:
+    path: /parsings/{$parsing}/posts
+    controller: App\Controller\ParserController::detail
+    requirements:
+        parsing: '\d+'
+    methods: GET
+
+parsing_post_detail:
+    path: /parsings/{$parsing}/posts/{$post}
+    controller: App\Controller\ParserController::postDetail
+    requirements:
+        parsing: '\d+'
+        post: '\d+'
+    methods: GET
