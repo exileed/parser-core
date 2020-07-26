@@ -7,6 +7,10 @@ use App\Interfaces\ParserClientInterface;
 use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+/**
+ * Class ParserClient
+ * @package App\Clients
+ */
 class ParserClient implements ParserClientInterface
 {
     /**
