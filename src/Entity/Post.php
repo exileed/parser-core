@@ -77,6 +77,12 @@ class Post
         return $this->images;
     }
 
+    public function getImagesToArray(): array
+    {
+        $imagesUnserialized = unserialize($this->images);
+        return $imagesUnserialized !== false ? $imagesUnserialized : [];
+    }
+
     public function setImages(string $images): self
     {
         $this->images = $images;

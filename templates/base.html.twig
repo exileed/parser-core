@@ -2,11 +2,26 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet"
+              href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+        <title>{% block title %}RBK Parser App{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+            <h1 class="text-center">RBK PARSER</h1>
+            <div class="text-center" style="background:#5eb5e0">
+                {% if currentParsingState %}
+                <a style="color:#fff;font-size: 2rem;" href="{{ path('parsing_list') }}">HISTORY</a>
+                {% endif %}
+            </div>
+
+            <div class="container">
+                {% block content %}Loading...{% endblock %}
+            </div>
+        {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>

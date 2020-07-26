@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Parsing;
+use App\Entity\Post;
+use App\Interfaces\BeautyPostsCropperInterface;
 use App\Interfaces\ParserDispatcherInterface;
 use App\Repository\ParsingRepository;
 use App\Repository\PostRepository;
@@ -12,35 +15,55 @@ class ParserController extends AbstractController
     /**
      * @var ParserDispatcherInterface
      */
-    protected $dispatcher;
+    private $dispatcher;
 
-    protected $parsingRepository;
+    /**
+     * @var ParsingRepository
+     */
+    private $parsingRepository;
 
-    protected $postRepository;
+    /**
+     * @var PostRepository
+     */
+    private $postRepository;
 
+    /**
+     * @var BeautyPostsCropperInterface
+     */
+    private $cropper;
+
+    /**
+     * ParserController constructor.
+     *
+     * @param ParserDispatcherInterface $dispatcher
+     * @param ParsingRepository $parsingRepository
+     * @param PostRepository $postRepository
+     * @param BeautyPostsCropperInterface $cropper
+     */
     public function __construct(
         ParserDispatcherInterface $dispatcher,
         ParsingRepository $parsingRepository,
-        PostRepository $postRepository
+        PostRepository $postRepository,
+        BeautyPostsCropperInterface $cropper
     ) {
         $this->dispatcher = $dispatcher;
         $this->parsingRepository = $parsingRepository;
         $this->postRepository = $postRepository;
+        $this->cropper = $cropper;
     }
 
     public function index()
     {
-        $parsingEntity = $this->parsingRepository->findLastOne();
+        $currentParsing = $this->parsingRepository->findLastOne();
+        $this->cropper->cropPostsForParsingEntity($currentParsing);
+        return $this->render('index/dashboard.html.twig', ['currentParsingState' => $currentParsing]);
 
-        return $this->render('index/dashboard.html.twig', [
-            //'parsingEntity' => $parsingEntity->,
-        ]);
     }
 
     public function run()
     {
         $this->dispatcher->dispatch();
-        return $this->redirect('parsing_current');
+        return $this->redirectToRoute('parsing_current');
     }
 
     public function list()
@@ -53,9 +76,9 @@ class ParserController extends AbstractController
 
     }
 
-    public function postDetail()
+    public function postDetail(Parsing $parsing, Post $post)
     {
-
+        return 1;
     }
 
 }

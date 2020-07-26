@@ -14,14 +14,14 @@ parsing_update:
     methods: GET
 
 parsing_posts_list:
-    path: /parsings/{$parsing}/posts
+    path: /parsings/{parsing}/posts
     controller: App\Controller\ParserController::detail
     requirements:
         parsing: '\d+'
     methods: GET
 
 parsing_post_detail:
-    path: /parsings/{$parsing}/posts/{$post}
+    path: /parsings/{parsing}/posts/{post}
     controller: App\Controller\ParserController::postDetail
     requirements:
         parsing: '\d+'

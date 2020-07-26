@@ -1,1 +1,45 @@
-<h1>Your lucky number is {{ number }}</h1>
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    {% if currentParsingState %}
+        <div class="row">
+            <div class="col-sm-12" style="background:#96d28d; text-align:center;">
+                <a style="color:#fff;font-size: 2rem;" href="{{ path('parsing_update') }}">
+                    <span>RUN PARSE</span>
+                    <span>(Last update: {{ currentParsingState.getCreatedAt.format('Y-m-d H:i:s') }})</span>
+                </a>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Details</th>
+                    <th>Title</th>
+                    <th>Body</th>
+                    <th>Image</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for post in currentParsingState.getPosts %}
+                    <tr>
+                        <td><a href="
+                            {{ path('parsing_post_detail', {parsing: currentParsingState.getId, post: post.getId}) }}
+                            ">{{ post.title }}</a></td>
+                        <td>{{ post.getTitle }}</td>
+                        <td>{{ post.getBody }}</td>
+                        <td>
+                            {% if post.getImagesToArray|first %}
+                                <img height="100px" src="{{ post.getImagesToArray|first }}" alt="{{ post.getTitle }}"/>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+    <div style="background:#96d28d; text-align:center;">
+        <a style="color:#fff;font-size: 2rem;" href="{{ path('parsing_update') }}">RUN PARSE</a>
+    </div>
+{% endblock %}
