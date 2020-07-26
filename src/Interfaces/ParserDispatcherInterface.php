@@ -2,15 +2,14 @@
 
 namespace App\Interfaces;
 
-use App\Exceptions\ParserClientEmptyException;
-
+/**
+ * Interface ParserDispatcherInterface
+ * @package App\Interfaces
+ */
 interface ParserDispatcherInterface
 {
     /**
      * @return void
-     *
-     * @throws ParserClientEmptyException
      */
     public function dispatch();
-
 }

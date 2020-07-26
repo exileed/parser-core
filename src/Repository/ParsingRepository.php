@@ -70,6 +70,9 @@ class ParsingRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * @return Parsing
+     */
     public function createParsing()
     {
         return new Parsing();

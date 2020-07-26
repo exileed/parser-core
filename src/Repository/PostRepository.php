@@ -57,9 +57,11 @@ class PostRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * @return Post
+     */
     public function createNewPost()
     {
         return new Post();
     }
-
 }

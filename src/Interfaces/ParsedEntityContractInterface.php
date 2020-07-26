@@ -2,6 +2,10 @@
 
 namespace App\Interfaces;
 
+/**
+ * Interface ParsedEntityContractInterface
+ * @package App\Interfaces
+ */
 interface ParsedEntityContractInterface
 {
     /**

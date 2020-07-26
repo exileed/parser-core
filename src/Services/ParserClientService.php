@@ -7,6 +7,10 @@ use App\Interfaces\ParserClientInterface;
 use App\Interfaces\ParserClientServiceInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
+/**
+ * Class ParserClientService
+ * @package App\Services
+ */
 class ParserClientService implements ParserClientServiceInterface
 {
     /**

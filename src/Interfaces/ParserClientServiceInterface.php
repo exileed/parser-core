@@ -2,8 +2,6 @@
 
 namespace App\Interfaces;
 
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-
 /**
  * Interface ParserClientServiceInterface
  * @package App\Interfaces

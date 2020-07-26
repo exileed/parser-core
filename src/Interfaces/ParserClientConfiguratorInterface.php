@@ -2,6 +2,10 @@
 
 namespace App\Interfaces;
 
+/**
+ * Interface ParserClientConfiguratorInterface
+ * @package App\Interfaces
+ */
 interface ParserClientConfiguratorInterface
 {
     const PROTOCOL = 'https';
@@ -59,5 +63,4 @@ interface ParserClientConfiguratorInterface
      * @return string
      */
     public function getSelectorPostDetailBanner(): string;
-
 }

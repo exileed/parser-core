@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Parsing;
 use App\Entity\Post;
+use App\Exceptions\ParsingNotFoundException;
 use App\Interfaces\BeautyPostsCropperInterface;
 use App\Interfaces\ParserDispatcherInterface;
 use App\Repository\ParsingRepository;
@@ -78,13 +79,19 @@ class ParserController extends AbstractController
 
     public function view(Parsing $parsing)
     {
+        if (null === $parsing) {
+            throw new ParsingNotFoundException();
+        }
+
         $this->cropper->cropPostsForParsingEntity($parsing);
         return $this->render('index/dashboard.html.twig', ['currentParsingState' => $parsing]);
     }
 
     public function postDetail(Parsing $parsing, Post $post)
     {
-        if ((int)$post->getParsing()->getId() !== $parsing->getId()) {
+        if (null === $parsing) {
+            throw new ParsingNotFoundException();
+        } elseif ((int)$post->getParsing()->getId() !== $parsing->getId()) {
             throw new PostNotFoundException();
         }
 

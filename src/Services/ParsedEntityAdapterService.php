@@ -4,6 +4,10 @@ namespace App\Services;
 
 use App\Interfaces\ParsedEntityContractInterface;
 
+/**
+ * Class ParsedEntityAdapterService
+ * @package App\Services
+ */
 class ParsedEntityAdapterService implements ParsedEntityContractInterface
 {
     /**
