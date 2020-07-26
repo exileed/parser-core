@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Interfaces\ParsedEntityContractInterface;
 use App\Interfaces\ParserClientServiceInterface;
 use App\Interfaces\ParserDispatcherInterface;
 use App\Interfaces\ParserPostsStorageInterface;
@@ -24,17 +25,23 @@ class ParserDispatcherService implements ParserDispatcherInterface
      */
     private $storage;
 
+    private $parsedEntityBuilder;
 
     /**
      * ParserDispatcherService constructor.
      *
      * @param ParserClientServiceInterface $service
      * @param ParserPostsStorageInterface $storage
+     * @param ParsedEntityContractInterface $parsedEntityBuilder
      */
-    public function __construct(ParserClientServiceInterface $service, ParserPostsStorageInterface $storage)
-    {
+    public function __construct(
+        ParserClientServiceInterface $service,
+        ParserPostsStorageInterface $storage,
+        ParsedEntityContractInterface $parsedEntityBuilder
+    ) {
         $this->parserService = $service;
         $this->storage = $storage;
+        $this->parsedEntityBuilder = $parsedEntityBuilder;
     }
 
 
@@ -48,12 +55,12 @@ class ParserDispatcherService implements ParserDispatcherInterface
         $data = [];
         foreach ($postsReferencesCollection as $url) {
             $this->parserService->updateClientStateContent($url);
-            $data[] = [
-                ParserPostsStorageInterface::PARAMETER_URL => $url,
-                ParserPostsStorageInterface::PARAMETER_TITLE => $this->parserService->getPostTitle(),
-                ParserPostsStorageInterface::PARAMETER_BODY => $this->parserService->getPostBody(),
-                ParserPostsStorageInterface::PARAMETER_IMAGES => $this->parserService->getPostImages()
-            ];
+            $parsedAdaptedEntity = $this->parsedEntityBuilder->getParsedEntity();
+            $parsedAdaptedEntity->setUrl($url);
+            $parsedAdaptedEntity->setTitle($this->parserService->getPostTitle());
+            $parsedAdaptedEntity->setBody($this->parserService->getPostBody());
+            $parsedAdaptedEntity->setImages($this->parserService->getPostImages());
+            $data[] = $parsedAdaptedEntity;
         }
 
         $this->storage->saveParsedData($data);

@@ -1,5 +1,10 @@
-parsing_list:
+parsing_current:
     path: /
+    controller: App\Controller\ParserController::index
+    methods: GET
+
+parsing_list:
+    path: /parsings
     controller: App\Controller\ParserController::list
     methods: GET
 

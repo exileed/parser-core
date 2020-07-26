@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Interfaces\ParsedEntityContractInterface;
 use App\Interfaces\ParserPostsStorageInterface;
 use App\Repository\ParsingRepository;
 use App\Repository\PostRepository;
@@ -29,11 +30,6 @@ class ParserPostsStorageService implements ParserPostsStorageInterface
     private $entityManager;
 
     /**
-     * @var
-     */
-    private $posts = [];
-
-    /**
      * ParserPostsStorageService constructor.
      *
      * @param ParsingRepository $parsingRepository
@@ -51,29 +47,27 @@ class ParserPostsStorageService implements ParserPostsStorageInterface
     }
 
     /**
-     * Мне очень стыдно за этот метод... 3 часа ночи)))
-     * @Todo Сделать по-человечески.
-     * @param array $parsedData
+     * @param ParsedEntityContractInterface[] $parsedContractEntities
      */
-    public function saveParsedData(array $parsedData)
+    public function saveParsedData(array $parsedContractEntities)
     {
         $parsingEntity = $this->parsingRepository->createParsing();
         $parsingEntity->setCreatedAt(new \DateTime());
 
-        foreach ($parsedData as $data) {
+        foreach ($parsedContractEntities as $parsedContractEntity) {
             if (
-                '' === trim($data[ParserPostsStorageInterface::PARAMETER_TITLE])
-                || '' === trim($data[ParserPostsStorageInterface::PARAMETER_BODY])
-                || '' === trim($data[ParserPostsStorageInterface::PARAMETER_URL])
+                '' === $parsedContractEntity->getTitle()
+                || '' === $parsedContractEntity->getBody()
+                || '' === $parsedContractEntity->getUrl()
             ) {
                 continue;
             }
 
             $postEntity = $this->postRepository->createNewPost();
-            $postEntity->setTitle($data[ParserPostsStorageInterface::PARAMETER_TITLE]);
-            $postEntity->setBody($data[ParserPostsStorageInterface::PARAMETER_BODY]);
-            $postEntity->setImages(serialize($data[ParserPostsStorageInterface::PARAMETER_IMAGES]));
-            $postEntity->setUrl($data[ParserPostsStorageInterface::PARAMETER_URL]);
+            $postEntity->setTitle($parsedContractEntity->getTitle());
+            $postEntity->setBody($parsedContractEntity->getBody());
+            $postEntity->setImages($parsedContractEntity->getImages());
+            $postEntity->setUrl($parsedContractEntity->getUrl());
             $parsingEntity->addPost($postEntity);
             $this->entityManager->persist($postEntity);
         }

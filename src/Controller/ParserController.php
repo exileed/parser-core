@@ -33,14 +33,14 @@ class ParserController extends AbstractController
         $parsingEntity = $this->parsingRepository->findLastOne();
 
         return $this->render('index/dashboard.html.twig', [
-            'parsingEntity' => $parsingEntity,
+            //'parsingEntity' => $parsingEntity->,
         ]);
     }
 
     public function run()
     {
         $this->dispatcher->dispatch();
-        return $this->redirect('parsing_list');
+        return $this->redirect('parsing_current');
     }
 
     public function list()
