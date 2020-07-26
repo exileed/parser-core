@@ -9,6 +9,7 @@ use App\Interfaces\ParserDispatcherInterface;
 use App\Repository\ParsingRepository;
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Exceptions\PostNotFoundException;
 
 class ParserController extends AbstractController
 {
@@ -68,17 +69,26 @@ class ParserController extends AbstractController
 
     public function list()
     {
-
+        $historyParsings = $this->parsingRepository->findAllLimited();
+        return $this->render('index/history.html.twig', [
+            'historyParsings' => $historyParsings,
+            'currentParsingState' => current($historyParsings),
+        ]);
     }
 
-    public function detail()
+    public function view(Parsing $parsing)
     {
-
+        $this->cropper->cropPostsForParsingEntity($parsing);
+        return $this->render('index/dashboard.html.twig', ['currentParsingState' => $parsing]);
     }
 
     public function postDetail(Parsing $parsing, Post $post)
     {
-        return 1;
+        if ((int)$post->getParsing()->getId() !== $parsing->getId()) {
+            throw new PostNotFoundException();
+        }
+
+        return $this->render('index/post.html.twig', ['post' => $post, 'currentParsingState' => $parsing]);
     }
 
 }

@@ -6,7 +6,7 @@
               href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
               crossorigin="anonymous">
-        <title>{% block title %}RBK Parser App{% endblock %}</title>
+        <title>{% block title %}Parser App{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
@@ -18,8 +18,8 @@
                 {% endif %}
             </div>
 
-            <div class="container">
-                {% block content %}Loading...{% endblock %}
+            <div class="container" style="max-width:80%;">
+                {% block content %}Parser App Loading...{% endblock %}
             </div>
         {% endblock %}
         {% block javascripts %}{% endblock %}

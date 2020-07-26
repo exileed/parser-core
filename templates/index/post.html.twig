@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    {% if post %}
+        <div class="clearfix" style="margin:15px 0">
+            <div class="float-left" style="padding:5px;">
+                    <a class="btn btn-success" href="{{ path('parsing_current') }}">HOME</a>
+            </div>
+            <div class="float-right" style="padding:5px;">
+                {% if currentParsingState %}
+                    <a class="btn btn-primary" href="{{ path('parsing_list') }}">HISTORY</a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <article class="row" style="margin-bottom:20px">
+            <h2 class="col-sm-12 text-center">{{ post.getTitle }}</h2>
+            <aside class="col-sm-9">
+                {{ post.getBody }}
+            </aside>
+            <aside class="col-sm-3">
+                {% if post.getImagesToArray|first %}
+                    <img style="max-width:100%" src="{{ post.getImagesToArray|first }}" alt="{{ post.getTitle }}"/>
+                {% endif %}
+            </aside>
+        </article>
+    {% endif %}
+    <div style="background:#96d28d; text-align:center;">
+        <a style="color:#fff;font-size: 2rem;" href="{{ path('parsing_update') }}">RUN PARSE</a>
+    </div>
+{% endblock %}

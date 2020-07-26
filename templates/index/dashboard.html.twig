@@ -2,22 +2,26 @@
 
 {% block content %}
     {% if currentParsingState %}
-        <div class="row">
-            <div class="col-sm-12" style="background:#96d28d; text-align:center;">
-                <a style="color:#fff;font-size: 2rem;" href="{{ path('parsing_update') }}">
+        <div class="row" style="margin:15px;">
+            <div class="col-sm-8">
+                <a class="btn btn-success" href="{{ path('parsing_update') }}">
                     <span>RUN PARSE</span>
                     <span>(Last update: {{ currentParsingState.getCreatedAt.format('Y-m-d H:i:s') }})</span>
                 </a>
+            </div>
+            <div class="col-sm-4">
+                {% if currentParsingState %}
+                    <a class="btn btn-primary" href="{{ path('parsing_list') }}">HISTORY</a>
+                {% endif %}
             </div>
         </div>
         <div class="table-responsive">
             <table class="table">
                 <thead>
                 <tr>
-                    <th>Details</th>
-                    <th>Title</th>
-                    <th>Body</th>
-                    <th>Image</th>
+                    <th class="text-center">Details</th>
+                    <th class="text-center">Title</th>
+                    <th class="text-center" colspan="2">Preview</th>
                 </tr>
                 </thead>
                 <tbody>

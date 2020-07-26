@@ -3,6 +3,13 @@ parsing_current:
     controller: App\Controller\ParserController::index
     methods: GET
 
+parsing_view_posts:
+    path: /parsings/{parsing}
+    controller: App\Controller\ParserController::view
+    requirements:
+        parsing: '\d+'
+    methods: GET
+
 parsing_list:
     path: /parsings
     controller: App\Controller\ParserController::list
@@ -11,13 +18,6 @@ parsing_list:
 parsing_update:
     path: /parsings/update
     controller: App\Controller\ParserController::run
-    methods: GET
-
-parsing_posts_list:
-    path: /parsings/{parsing}/posts
-    controller: App\Controller\ParserController::detail
-    requirements:
-        parsing: '\d+'
     methods: GET
 
 parsing_post_detail:

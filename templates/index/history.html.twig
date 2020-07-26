@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    {% if historyParsings %}
+        <div class="row" style="margin:15px;">
+            <div class="col-sm-4">
+                    <a class="btn btn-primary" href="{{ path('parsing_current') }}">HOME</a>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th class="text-center">Details</th>
+                    <th class="text-center">Created</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for parsing in historyParsings %}
+                    <tr>
+                        <td class="text-center">
+                            <a href="{{ path('parsing_view_posts', {parsing: parsing.getId}) }}" class="btn btn-warning">
+                                {{ parsing.getId }}
+                            </a>
+                        </td>
+                        <td class="text-center">{{ parsing.getCreatedAt.format('Y-m-d H:i:s') }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+    <div style="background:#96d28d; text-align:center;">
+        <a style="color:#fff;font-size: 2rem;" href="{{ path('parsing_update') }}">RUN PARSE</a>
+    </div>
+{% endblock %}
