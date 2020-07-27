@@ -1,18 +1,19 @@
 #PRESENTATION
+
 ##Main page
 ![Main Page](preview/Main.png)
-  - Here is current condition of last parsing process: list of parsed posts with links (detail pages of posts)
-  - [RUN PARSE BUTTON] executes new parsing. It works, but I made it for presentation only.
-    - **USE THE CONSOLE COMMAND ```bin/console parser:run```**
-  - [HISTORY BUTTON] go to history of parsing processes, look below...
+- Here is current condition of last parsing process: list of parsed posts with links (detail pages of posts)
+- [RUN PARSE BUTTON] executes new parsing. It works, but I made it for presentation only.
+  - **USE THE CONSOLE COMMAND ```bin/console parser:run```**
+- [HISTORY BUTTON] go to history of parsing processes, look below...
 
 ##History page
 ![History Page](preview/History.png)
-  - Here is a simple list with dates of parsings and links on their detail pages, below...
+- Here is a simple list with dates of parsings and links on their detail pages, below...
   
 ##Detail page of parsing
 ![History Page](preview/Details_History.png)
-  - It is similar with main page, but the difference is a state of posts list on previous date. Let's go to detail post's page... 
+- It is similar with main page, but the difference is a state of posts list on previous date. Let's go to detail post's page... 
 
 ##Detail page of post
 ![History Page](preview/Details_Post.png)
