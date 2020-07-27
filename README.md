@@ -3,7 +3,7 @@
 ![Main Page](preview/Main.png)
   - Here is current condition of last parsing process: list of parsed posts with links (detail pages of posts)
   - [RUN PARSE BUTTON] executes new parsing. It works, but I made it for presentation only.
-    - USE THE CONSOLE COMMAND ```bin/console parser:run```
+    - **USE THE CONSOLE COMMAND ```bin/console parser:run```**
   - [HISTORY BUTTON] go to history of parsing processes, look below...
 
 ###History page
@@ -41,5 +41,5 @@
 - Framework: Symfony 5.1 (PHP 7.4)
 - Database: MySQL (8+) / Doctrine ORM
 - Web-serever: NGINX
-- Docker + Docker-compose
-- Frontend: twig / bootstrap 4
+- Deploy: Docker / Docker-compose / Composer
+- Frontend: TWIG / Bootstrap 4
