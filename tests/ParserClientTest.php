@@ -2,8 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use App\Clients\ParserClient;
-
-use Symfony\Component\DomCrawler\Crawler;
+use App\Clients\ParserClientTerminal;
 use App\Clients\ParserClientConfigurator;
 use Symfony\Component\HttpClient\MockHttpClient;
 
@@ -12,11 +11,10 @@ use Symfony\Component\HttpClient\MockHttpClient;
  */
 class ParserClientTest extends TestCase
 {
-
     public function testGetPostsLinksCollection()
     {
         $this->setDependencies([
-            'parserObject' => new Crawler(),
+            'parserObject' => new ParserClientTerminal(),
             'configuratorObject' => new ParserClientConfigurator(),
             'httpClientObject' => new MockHttpClient(),
         ]);
@@ -41,7 +39,7 @@ class ParserClientTest extends TestCase
     public function testGetPostTitle()
     {
         $this->setDependencies([
-            'parserObject' => new Crawler(),
+            'parserObject' => new ParserClientTerminal(),
             'configuratorObject' => new ParserClientConfigurator(),
             'httpClientObject' => new MockHttpClient(),
         ]);
@@ -62,7 +60,7 @@ class ParserClientTest extends TestCase
     public function testGetPostBody()
     {
         $this->setDependencies([
-            'parserObject' => new Crawler(),
+            'parserObject' => new ParserClientTerminal(),
             'configuratorObject' => new ParserClientConfigurator(),
             'httpClientObject' => new MockHttpClient(),
         ]);
@@ -83,7 +81,7 @@ class ParserClientTest extends TestCase
     public function testGetPostImages()
     {
         $this->setDependencies([
-            'parserObject' => new Crawler(),
+            'parserObject' => new ParserClientTerminal(),
             'configuratorObject' => new ParserClientConfigurator(),
             'httpClientObject' => new MockHttpClient(),
         ]);
@@ -104,7 +102,7 @@ class ParserClientTest extends TestCase
     public function testUpdateClientContent()
     {
         $this->setDependencies([
-            'parserObject' => new Crawler(),
+            'parserObject' => new ParserClientTerminal(),
             'resourceUrl' => 'https://google.com',
             'httpClientObject' => new MockHttpClient(),
         ]);
@@ -121,6 +119,4 @@ class ParserClientTest extends TestCase
             )
         );
     }
-
-
 }

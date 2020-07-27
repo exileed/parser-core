@@ -1,20 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    {% if currentParsingState %}
-        <div class="row" style="margin:15px;">
-            <div class="col-sm-8">
-                <a class="btn btn-success" href="{{ path('parsing_update') }}">
-                    <span>RUN PARSE</span>
-                    <span>(Last update: {{ currentParsingState.getCreatedAt.format('Y-m-d H:i:s') }})</span>
-                </a>
-            </div>
-            <div class="col-sm-4">
+    <div class="clearfix" style="margin:15px 0">
+        <div class="float-left" style="padding:5px;">
+            <a class="btn btn-success" href="{{ path('parsing_update') }}">
+                <span>RUN PARSE</span>
                 {% if currentParsingState %}
-                    <a class="btn btn-primary" href="{{ path('parsing_list') }}">HISTORY</a>
+                    <span>(Current parsing date: {{ currentParsingState.getCreatedAt.format('Y-m-d H:i:s') }})</span>
                 {% endif %}
-            </div>
+            </a>
         </div>
+        <div class="float-right" style="padding:5px;">
+            {% if currentParsingState %}
+                <a class="btn btn-primary" href="{{ path('parsing_list') }}">HISTORY</a>
+            {% endif %}
+        </div>
+    </div>
+    {% if currentParsingState %}
         <div class="table-responsive">
             <table class="table">
                 <thead>

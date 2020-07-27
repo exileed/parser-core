@@ -14,17 +14,17 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class ParserClient implements ParserClientInterface
 {
     /**
-     * @var Crawler
+     * @var ParserClientTerminalInterface
      */
-    private $crawlerClient;
+    private $parserTerminal;
 
     /**
      * ParserClient constructor.
-     * @param Crawler $crawler
+     * @param ParserClientTerminalInterface $parserTerminal
      */
-    public function __construct(Crawler $crawler)
+    public function __construct(ParserClientTerminalInterface $parserTerminal)
     {
-        $this->crawlerClient = $crawler;
+        $this->parserTerminal = $parserTerminal;
     }
 
     /**
@@ -38,7 +38,7 @@ class ParserClient implements ParserClientInterface
 
         $this->updateClientContent($httpClient, $this->createSourceString($configurator));
 
-        return $this->crawlerClient->filter($configurator->getSelectorPostInList())->extract(['href']);
+        return $this->parserTerminal->filter($configurator->getSelectorPostInList())->extract(['href']);
     }
 
     /**
@@ -49,7 +49,7 @@ class ParserClient implements ParserClientInterface
         HttpClientInterface $httpClient
     ): string
     {
-        $filteredDom = $this->crawlerClient->filter($configurator->getSelectorPostDetailTitle())->first();
+        $filteredDom = $this->parserTerminal->filter($configurator->getSelectorPostDetailTitle())->first();
         if ($filteredDom->count() > 0) {
             return $filteredDom->text();
         }
@@ -65,7 +65,7 @@ class ParserClient implements ParserClientInterface
         HttpClientInterface $httpClient
     ): string
     {
-        $filteredDom = $this->crawlerClient->filter($configurator->getSelectorPostDetailBody())->first();
+        $filteredDom = $this->parserTerminal->filter($configurator->getSelectorPostDetailBody())->first();
         if ($filteredDom->count() > 0) {
             return $filteredDom->text();
         }
@@ -80,7 +80,7 @@ class ParserClient implements ParserClientInterface
         HttpClientInterface $httpClient
     ): array
     {
-        return $this->crawlerClient->filter($configurator->getSelectorPostDetailImage())->extract(['src']);
+        return $this->parserTerminal->filter($configurator->getSelectorPostDetailImage())->extract(['src']);
     }
 
     /**
@@ -94,8 +94,8 @@ class ParserClient implements ParserClientInterface
      */
     public function updateClientContent(HttpClientInterface $httpClient, string $url)
     {
-        $this->crawlerClient->clear();
-        $this->crawlerClient->add($httpClient->request('GET', $url)->getContent());
+        $this->parserTerminal->clear();
+        $this->parserTerminal->add($httpClient->request('GET', $url)->getContent());
     }
 
     /**

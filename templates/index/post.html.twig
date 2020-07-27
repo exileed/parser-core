@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    {% if post %}
-        <div class="clearfix" style="margin:15px 0">
-            <div class="float-left" style="padding:5px;">
-                    <a class="btn btn-success" href="{{ path('parsing_current') }}">HOME</a>
-            </div>
-            <div class="float-right" style="padding:5px;">
-                {% if currentParsingState %}
-                    <a class="btn btn-primary" href="{{ path('parsing_list') }}">HISTORY</a>
-                {% endif %}
-            </div>
+    <div class="clearfix" style="margin:15px 0">
+        <div class="float-left" style="padding:5px;">
+            <a class="btn btn-success" href="{{ path('parsing_current') }}">HOME</a>
         </div>
+        <div class="float-right" style="padding:5px;">
+            {% if currentParsingState %}
+                <a class="btn btn-primary" href="{{ path('parsing_list') }}">HISTORY</a>
+            {% endif %}
+        </div>
+    </div>
+    {% if post %}
         <div class="clearfix"></div>
         <article class="row" style="margin-bottom:20px">
             <h2 class="col-sm-12 text-center">{{ post.getTitle }}</h2>
